@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="box">
+        <table class="table is-striped is-fullwidth">
+            <tr>
+                <th>#</th>
+                <th>Kelas</th>
+
+            </tr>
+            {% for kel in kelas %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ kel.nama }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_siswa', id=kel.id) }}" class="button is-small is-warning">Edit</a>
+                    <a class="button is-small is-danger">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

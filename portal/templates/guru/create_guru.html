@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="fieldset">
+            <legend class="title is-3">{{title}}</legend>
+            <div class="field">
+                {{ form.nama.label(class="label") }}
+                <div class="control has-icons-left">
+                    {% if form.nama.errors %}
+                        {{ form.nama(class="input is-danger") }}
+                        {% for error in form.nama.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.nama(class="input") }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                          </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="field">
+                {{ form.email.label(class="label") }}
+                <div class="control has-icons-left">
+                    {% if form.email.errors %}
+                        {{ form.email(class="input is-danger") }}
+                        {% for error in form.email.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.email(class="input") }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                          </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="field">
+                {{ form.tanggal_lahir.label(class="label") }}
+                <div class="control has-icons-left">
+                    {% if form.tanggal_lahir.errors %}
+                        {{ form.tanggal_lahir(class="input is-danger") }}
+                        {% for error in form.tanggal_lahir.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.tanggal_lahir(class="input") }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                            </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <div class="select">
+                        {% if form.jenis_kelamin.errors %}
+                                {{ form.jenis_kelamin(class="custom-select") }}
+                                <div class="invalid-feedback">
+                                        {% for error in form.jenis_kelamin.errors %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        {{ form.jenis_kelamin }}
+                        {% endif %}
+                    </div>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <div class="select">
+                        {% if form.agama.errors %}
+                                {{ form.agama(class="custom-select") }}
+                                <div class="invalid-feedback">
+                                        {% for error in form.agama.errors %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        {{ form.agama }}
+                        {% endif %}
+                    </div>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                {{ form.alamat.label(class="label") }}
+                {% if form.alamat.errors %}
+                    {{ form.alamat(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.alamat.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.alamat(class="textarea") }}
+                {% endif %}
+                </p>
+            </div>
+            <div class="field">
+                    {{ form.thumbnail.label(class="file-label") }}
+                    {{ form.thumbnail(class="") }}
+                    {% if form.thumbnail.errors %}
+                        {% for error in form.thumbnail.errors %}
+                            <span class="text-danger">{{ error }}</span><br>
+                        {% endfor %}
+                    {% endif %}
+            </div>
+            <div class="field">
+                <p class="control has-text-right">
+                    {{ form.submit(class="button is-success") }}
+                </p>
+            </div>
+        </fieldset>
+    </form>
+{% endblock content %}

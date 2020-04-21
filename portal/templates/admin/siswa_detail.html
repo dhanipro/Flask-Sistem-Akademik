@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="box">
+        <p class="title is-1">{{ siswa.nama }}</p>
+        <table class="table is-striped is-fullwidth">
+            <tr>
+                <th>Tanggal</th>
+                <th>Mata Pelajaran</th>
+                <th>Hadir</th>
+                <th>Sakit</th>
+                <th>Izin</th>
+                <th>Alpa</th>
+
+            </tr>
+            {% if siswa.kehadiran_siswa %}
+            {% for abs in siswa.kehadiran_siswa|sort(attribute='waktu_absen', reverse = True) %}
+            <tr>
+                <td>{{ abs.waktu_absen.strftime('%d-%m-%Y') }}</td>
+                <td>{{ abs.mapel.nama }}</td>
+                
+                    {% for a in absen %}
+                    <td>
+                        {% if abs.absen_id == a.id %}
+                        <input type="checkbox" checked disabled>
+                        {% elif abs.absen_id != a.id %}
+                        <input type="checkbox" disabled>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+{% endblock content %}

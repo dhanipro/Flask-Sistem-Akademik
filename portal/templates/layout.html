@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - DhaniPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkbox-bulma.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tooltip.min.css') }}" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+  </head>
+  <body class="has-background-grey-dark">
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                  <a class="navbar-item" href="{{ url_for('admin.panel') }}">
+                    <img src="{{ url_for('static', filename='img/DhaniPro Transparant.png') }}">
+                  </a>
+              
+                  <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                  </a>
+                </div>
+              
+                <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-start">
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                      <a class="navbar-link">
+                        <span class="icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </span>
+                        <span>Siswa</span>
+                      </a>
+              
+                      <div class="navbar-dropdown">
+                        <a href="{{ url_for('admin.daftar_kelas') }}" class="navbar-item">
+                            Daftar Kelas
+                        </a>
+                        <a href="{{ url_for('admin.tambah_kelas') }}" class="navbar-item">
+                          Tambah Kelas
+                        </a>
+                        <a href="{{ url_for('admin.daftar_siswa') }}" class="navbar-item">
+                          Daftar Siswa
+                        </a>
+                        <a href="{{ url_for('admin.tambah_siswa') }}" class="navbar-item">
+                          Tambah Siswa
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                          <span class="icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                          </span>
+                          <span>Guru</span>
+                        </a>
+                
+                        <div class="navbar-dropdown">
+                          <a href="{{ url_for('guru.daftar_guru') }}" class="navbar-item">
+                              Daftar Guru
+                          </a>
+                          <a href="{{ url_for('guru.tambah_guru') }}" class="navbar-item">
+                            Tambah Guru
+                          </a>
+                          <a href="{{ url_for('guru.mengajar') }}" class="navbar-item">
+                            Mulai Mengajar
+                          </a>
+                        </div>
+                      </div>
+
+                      <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <span class="icon">
+                              <i class="fas fa-book"></i>
+                            </span>
+                            <span>Pelajaran</span>
+                        </a>
+                        <div class="navbar-dropdown">
+                          <a href="{{ url_for('admin.daftar_mapel') }}" class="navbar-item">
+                              Daftar Mapel
+                          </a>
+                          <a href="{{ url_for('admin.tambah_mapel') }}" class="navbar-item">
+                            Tambah Mapel
+                          </a>
+                        </div>
+                      </div>
+
+                      <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                          <span class="icon">
+                            <i class="far fa-calendar-alt"></i>
+                          </span>
+                          <span>Jadwal</span>
+                        </a>
+                
+                        <div class="navbar-dropdown">
+                          <a href="{{ url_for('jadwal.tambah_jadwal_belajar') }}" class="navbar-item">
+                              Tambah Jadwal Belajar
+                          </a>
+                          <a href="{{ url_for('jadwal.jadwal_belajar') }}" class="navbar-item">
+                              Jadwal Belajar
+                          </a>
+                          <a href="{{ url_for('guru.tambah_guru') }}" class="navbar-item">
+                            Jadwal Mengajar
+                          </a>
+                          <a href="{{ url_for('guru.mengajar') }}" class="navbar-item">
+                            Mulai Mengajar
+                          </a>
+                        </div>
+                      </div>
+                      
+                      <a href="" class="navbar-item">
+                        <span class="icon">
+                          <i class="fas fa-file-contract"></i>
+                        </span>
+                        <span>Rapor</span>
+                      </a>
+
+                      <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                          <span class="icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                          </span>
+                          <span>Administrasi</span>
+                        </a>
+                
+                        <div class="navbar-dropdown">
+                          <a href="{{ url_for('admin.tambah_spp') }}" class="navbar-item">
+                              Update Uang SPP
+                          </a>
+                          <a href="{{ url_for('admin.bayar_spp') }}" class="navbar-item">
+                              Pembayaran SPP
+                          </a>
+                          <a href="{{ url_for('guru.tambah_guru') }}" class="navbar-item">
+                            Jadwal Mengajar
+                          </a>
+                          <a href="{{ url_for('guru.mengajar') }}" class="navbar-item">
+                            Mulai Mengajar
+                          </a>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="navbar-end">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                      <a class="navbar-link">
+                        <span class="icon">
+                          <i class="fas fa-user-plus"></i>
+                        </span>
+                        <span>Role</span>
+                      </a>
+                      <div class="navbar-dropdown">
+                        <a href="{{ url_for('admin.role') }}" class="navbar-item">
+                          Daftar Role
+                        </a>
+                        <a href="{{ url_for('admin.tambah_role') }}" class="navbar-item">
+                          Tambah Role
+                        </a>
+                      </div>
+                    </div>
+                    <div class="navbar-item">
+                      <div class="buttons">
+                        <a class="button is-primary">
+                          <strong>Akun</strong>
+                        </a>
+                        <a href="" class="button is-light">
+                          Logout
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="columns is-marginless">
+                <div class="column">
+                    <!-- flash -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="notification {{ category }}">
+                    <button class="delete"></button>
+                    {{ message }}
+                    </div>
+                    {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        
+  </body>
+</html>

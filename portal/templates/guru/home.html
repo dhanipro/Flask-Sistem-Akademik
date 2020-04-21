@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="box">
+        <table class="table is-striped is-fullwidth">
+            <tr>
+                <th>Nama Guru</th>
+                <th>Email</th>
+                <th>Jenis Kelamin</th>
+                <th>Agama</th>
+                <th>Aksi</th>
+
+            </tr>
+            {% for g in guru %}
+            <tr>
+                <td>{{ g.nama }}</td>
+                <td>{{ g.email }}</td>
+                <td>{{ g.kelamin_guru.kelamin }}</td>
+                <td>{{ g.agama_guru.agama }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_siswa', id=g.id) }}" class="button is-small is-warning">Edit</a>
+                    <a class="button is-small is-danger">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

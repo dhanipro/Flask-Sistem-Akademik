@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p class="title is-3 has-text-white-ter">SPP Siswa</p>
+<div class="box has-background-dark">
+    <table class="table is-fullwidth has-background-dark">
+        <tr>
+            <th class="has-text-white-ter">Nama Siswa</th>
+            <th class="has-text-white-ter">Jenis Kelamin</th>
+            <th class="has-text-white-ter">Agama</th>
+            <th class="has-text-white-ter">Kelas</th>
+            <th class="has-text-white-ter">Aksi</th>
+
+        </tr>
+        {%if siswas %}
+        {% for siswa in siswas %}
+        <tr>
+            <td><a class="has-text-grey-light detail-siswa nama-siswa{{ siswa.id }}" data-siswa="{{ siswa.spp_siswa.id }}">{{ siswa.spp_siswa.nama }}</a></td>
+            <td class="has-text-grey-light">{{ siswa.spp_siswa.kelamin.kelamin }}</td>
+            <td class="has-text-grey-light">{{ siswa.spp_siswa.agama_siswa.agama }}</td>
+            <td class="has-text-grey-light">{{ siswa.spp_siswa.kelas_siswa.nama }}</td>
+            <td>
+                    {% if siswa.dibayarkan == true %}
+                        <a class="button is-small is-success modal-update" data-siswa="{{ siswa.id }}">Lunas</a>
+                    {% else %}
+                        <a class="button is-small is-danger modal-update" data-siswa="{{ siswa.id }}">Belum Bayar</a>
+                    {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+</div>
+
+<!-- modal hapus siswa -->
+<div class="modal modal-update-spp">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Uang SPP Sekarang Rp{{ spp_terakhir.nilai }}</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <p>Anda yakin ingin merubah status siswa ini menjadi lunas?</p>
+      </section>
+      <footer class="modal-card-foot">
+            <form action="" method="POST" id="update-siswa-spp">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <button type="submit" class="button is-success">Ya, Simpan</button>
+                <button type="button" class="button cancel-button-update-spp">Cancel</button>
+            </form>
+      </footer>
+    </div>
+</div>
+<!-- end modal hapus siswa -->
+
+<!-- modal detail siswa -->
+<div class="modal modal-detail-siswa">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title"></p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success cancel-button-detail-siswa is-pulled-right">Close</button>
+      </footer>
+    </div>
+  </div>
+<!-- end modal detail siswa -->
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="columns">
+    <div class="column">
+    <form method="GET">
+        <div class="field">
+            <label class="label">Kelas</label>
+            <div class="control">
+                <div class="select">
+                <select name="kelas" id="kelas">
+                    <option value="0">Pilih</option>
+                    {% for k in kelas %}
+                    <option value="{{ k.nama }}">{{ k.nama }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+    {% if mapel %}
+    <div class="box">
+        <p class="title is-4 has-text-centered">Jadwal Mata Pelajaran {{ mapel.nama }}</p>
+        <div class="columns is-multiline">
+            {% for j, items in mapel.jadwal_kelas|groupby('hari')|reverse %}
+                <div class="column is-4">
+                    <p class="is-size-5 has-text-black has-text-weight-bold">{{ j }}</p>
+                    {% for i in items %}
+                        <p class="is-size-6 has-tooltip-success" data-tooltip="{{ i.jadwal_guru.nama }}">{{ i.jadwal_mapel.nama }}<span class="is-size-7"> {{ i.mulai.strftime('%H:%M') }} - {{ i.akhir.strftime('%H:%M') }}</span></p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock content %}

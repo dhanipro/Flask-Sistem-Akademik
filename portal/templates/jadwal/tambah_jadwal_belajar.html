@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="fieldset">
+            <legend class="title is-3">{{title}}</legend>
+            <div class="field">
+                <p class="control">
+                    <div class="select">
+                        {% if form.mapel.errors %}
+                                {{ form.mapel(class="custom-select") }}
+                                <div class="invalid-feedback">
+                                        {% for error in form.mapel.errors %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        {{ form.mapel }}
+                        {% endif %}
+                    </div>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <div class="select">
+                        {% if form.kelas.errors %}
+                                {{ form.kelas(class="custom-select") }}
+                                <div class="invalid-feedback">
+                                        {% for error in form.kelas.errors %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        {{ form.kelas }}
+                        {% endif %}
+                    </div>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <div class="select">
+                        {% if form.guru.errors %}
+                                {{ form.guru(class="custom-select") }}
+                                <div class="invalid-feedback">
+                                        {% for error in form.guru.errors %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        {{ form.guru }}
+                        {% endif %}
+                    </div>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <div class="select">
+                        {% if form.hari.errors %}
+                                {{ form.hari(class="custom-select") }}
+                                <div class="invalid-feedback">
+                                        {% for error in form.hari.errors %}
+                                                <span>{{ error }}</span>
+                                        {% endfor %}
+                                </div>
+                        {% else %}
+                        {{ form.hari }}
+                        {% endif %}
+                    </div>
+                </p>
+            </div>
+            <div class="field">
+                {{ form.mulai.label(class="label") }}
+                <div class="control has-icons-left">
+                    {% if form.mulai.errors %}
+                        {{ form.mulai(class="input is-danger") }}
+                        {% for error in form.mulai.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.mulai(class="input") }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-clock"></i>
+                          </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="field">
+                {{ form.akhir.label(class="label") }}
+                <div class="control has-icons-left">
+                    {% if form.akhir.errors %}
+                        {{ form.akhir(class="input is-danger") }}
+                        {% for error in form.akhir.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.akhir(class="input") }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-clock"></i>
+                          </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="field">
+                <p class="control has-text-right">
+                    {{ form.submit(class="button is-success") }}
+                </p>
+            </div>
+        </fieldset>
+    </form>
+{% endblock content %}

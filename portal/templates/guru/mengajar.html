@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="box">
+        <form method="GET">
+            <div class="field">
+                <label class="label">Mata Pelajaran</label>
+                <div class="control">
+                    <div class="select">
+                    <select name="mapel" id="mapel">
+                        <option value="0">Pilih</option>
+                        {% for m in mapel %}
+                        <option value="{{ m.nama }}">{{ m.nama }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Kelas</label>
+                <div class="control">
+                    <div class="select">
+                    <select name="kelas" id="kelas">
+                        <option value="0">Pilih</option>
+                        {% for k in kelas %}
+                        <option value="{{ k.nama }}">{{ k.nama }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% if siswa %}
+        <table class="table is-striped is-fullwidth">
+            <tr>
+                <th>Nama Siswa</th>
+                <th>Jenis Kelamin</th>
+                <th>Agama</th>
+                <th>Absen</th>
+
+            </tr>
+            {% for s in siswa.siswas %}
+            <tr>
+                <td>{{ s.nama }}</td>
+                <td>{{ s.kelamin.kelamin }}</td>
+                <td>{{ s.agama_siswa.agama }}</td>
+                <td>
+                    <div class="control">
+                        {% for a in absen %}
+                        <label class="radio">
+                            <input type="radio" value="{{ a.id }}" name="{{ s.id }}">
+                            {{ a.nama }}
+                        </label>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = window.location.search.substring(1),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+    
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+    
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                    }
+                }
+            };
+            $('select option:contains('+getUrlParameter('mapel')+')').prop('selected',true);
+            $('select option:contains('+getUrlParameter('kelas')+')').prop('selected',true);
+        // onclick kelas-mapel
+        $('#kelas').on('change', function() {
+            this.form.submit();
+          });
+          
+          // onclick kehadiran
+          $('input:radio').change(function(){
+            var csrf_token = "{{ csrf_token() }}";
+            var mapel = getUrlParameter('mapel');
+            var kelas = getUrlParameter('kelas');
+            var kehadiran = $(this).val();
+            var siswa_id = $(this).attr("name");
+            var obj = { 
+                kehadiran: kehadiran,
+                siswa_id: siswa_id,
+                mapel: mapel,
+                kelas: kelas
+              };
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                    }
+                }
+            });
+            $.ajax({
+                  type : "POST",
+                  url : "/kehadiran/"+kehadiran,
+                  data: JSON.stringify(obj),
+                  contentType: 'json',
+                  success: function(result) {
+                      console.log(result);
+                  },
+                  error: function(error) {
+                      console.log(error);
+                  }
+              });
+            //console.log($(this).val());
+            //console.log($(this).attr("name"));
+            //console.log(obj)
+            });
+        })
+    </script>
+{% endblock content %}

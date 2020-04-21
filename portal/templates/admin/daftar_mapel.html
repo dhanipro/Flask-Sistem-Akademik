@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="box">
+        <table class="table is-striped is-fullwidth">
+            <tr>
+                <th>#</th>
+                <th>Mata Pelajaran</th>
+                <th>Aksi</th>
+
+            </tr>
+            {% for m in mapel %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ m.nama }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_siswa', id=m.id) }}" class="button is-small is-warning">Edit</a>
+                    <a class="button is-small is-danger">Hapus</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}
